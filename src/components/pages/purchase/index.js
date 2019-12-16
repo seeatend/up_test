@@ -188,9 +188,10 @@ const useStyles = makeStyles(theme => ({
   },
   priceCode: {
     display: 'flex',
+    justifyContent: 'center',
     marginBottom: '10px',
     '& h6': {
-      color: '#777'
+      color: '#777',
     }
   },
   talkToSales: {
@@ -204,7 +205,7 @@ const useStyles = makeStyles(theme => ({
       }
     },
     '& img': {
-      width: '100px',
+      width: '80px',
       marginLeft: '10px',
     }
   },
@@ -407,7 +408,7 @@ export default function Purchase() {
 
             {
               (planType === 'starter' || planType === 'premium') && (
-                <div>
+                <div style={{textAlign: 'center'}}>
                   <Typography variant="caption">We offer special pricing discounts for associations and groups.</Typography>&nbsp;
                   <Typography variant="caption" color="primary"  style={{fontFamily: 'gadugi-bold'}}><b>Find out more.</b></Typography><br/>
                   <Typography variant="caption">Enter your group discount code here:</Typography>&nbsp;
