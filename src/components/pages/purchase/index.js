@@ -106,6 +106,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   usersLine: {
+    width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -185,6 +186,13 @@ const useStyles = makeStyles(theme => ({
     '& input': {
       width: '35px'
     }
+  },
+  accountArea: {
+    height: '115px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   priceCode: {
     display: 'flex',
@@ -266,6 +274,7 @@ export default function Purchase() {
   const [planType, setPlanType] = React.useState('starter');
 
   const handlePurchaseType = (event, value) => {
+    if (value === null) value = purchaseType
     setPurchaseType(value);
   };
 
@@ -364,58 +373,60 @@ export default function Purchase() {
                 )
               }
             </div>
-            {
-              planType === 'starter' && (
-                <div className={classes.usersLine}>
-                  <div className={classes.counts}>10</div>
-                  <div className={`${classes.divider} active`} />
-                  <div className={`${classes.counts} active`} style={{margin: '0 5px'}}>25</div>
-                  <div className={classes.divider} />
-                  <div className={classes.counts}>50</div>
-                </div>
-              )
-            }
+            <div className={classes.accountArea}>
+              {
+                planType === 'starter' && (
+                  <div className={classes.usersLine}>
+                    <div className={classes.counts}>10</div>
+                    <div className={`${classes.divider} active`} />
+                    <div className={`${classes.counts} active`} style={{margin: '0 5px'}}>25</div>
+                    <div className={classes.divider} />
+                    <div className={classes.counts}>50</div>
+                  </div>
+                )
+              }
 
-            {
-              planType === 'premium' && (
-                <div className={classes.usersLine}>
-                  <div className={classes.counts}>50</div>
-                  <div className={`${classes.divider} active`} />
-                  <div className={`${classes.counts} active`} style={{margin: '0 5px'}}>200</div>
-                  <div className={classes.divider} />
-                  <div className={classes.counts}>10000</div>
-                </div>
-              )
-            }
+              {
+                planType === 'premium' && (
+                  <div className={classes.usersLine}>
+                    <div className={classes.counts}>50</div>
+                    <div className={`${classes.divider} active`} />
+                    <div className={`${classes.counts} active`} style={{margin: '0 5px'}}>200</div>
+                    <div className={classes.divider} />
+                    <div className={classes.counts}>10000</div>
+                  </div>
+                )
+              }
 
-            {
-              planType === 'enterprise' && (
-                <>
-                  <div className={classes.priceCode}>
-                    <Typography variant="subtitle1">Enter your enterprise pricing code here: </Typography>&nbsp;
+              {
+                planType === 'enterprise' && (
+                  <>
+                    <div className={classes.priceCode}>
+                      <Typography variant="subtitle1">Enter your enterprise pricing code here: </Typography>&nbsp;
+                      <input className={classes.customInput} />
+                    </div>
+                    <div className={classes.talkToSales}>
+                      <div className="text">
+                        <Typography variant="caption">Don't have a code and would like a Unlimited plan option</Typography>
+                        <Typography variant="subtitle1" color="primary">Talk to sales</Typography>
+                      </div>
+                      <img src={ContractSales} alt="" />
+                    </div>
+                  </>
+                )
+              }
+
+              {
+                (planType === 'starter' || planType === 'premium') && (
+                  <div style={{textAlign: 'center'}}>
+                    <Typography variant="caption">We offer special pricing discounts for associations and groups.</Typography>&nbsp;
+                    <Typography variant="caption" color="primary"  style={{fontFamily: 'gadugi-bold'}}><b>Find out more.</b></Typography><br/>
+                    <Typography variant="caption">Enter your group discount code here:</Typography>&nbsp;
                     <input className={classes.customInput} />
                   </div>
-                  <div className={classes.talkToSales}>
-                    <div className="text">
-                      <Typography variant="caption">Don't have a code and would like a Unlimited plan option</Typography>
-                      <Typography variant="subtitle1" color="primary">Talk to sales</Typography>
-                    </div>
-                    <img src={ContractSales} alt="" />
-                  </div>
-                </>
-              )
-            }
-
-            {
-              (planType === 'starter' || planType === 'premium') && (
-                <div style={{textAlign: 'center'}}>
-                  <Typography variant="caption">We offer special pricing discounts for associations and groups.</Typography>&nbsp;
-                  <Typography variant="caption" color="primary"  style={{fontFamily: 'gadugi-bold'}}><b>Find out more.</b></Typography><br/>
-                  <Typography variant="caption">Enter your group discount code here:</Typography>&nbsp;
-                  <input className={classes.customInput} />
-                </div>
-              )
-            }
+                )
+              }
+            </div>
           </Grid>
 
           <Grid item xs={5} className={classes.right}>
