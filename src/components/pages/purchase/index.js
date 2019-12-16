@@ -20,25 +20,22 @@ import ContractSales from '../../../assets/images/contact_sales.png'
 
 const useStyles = makeStyles(theme => ({
   purchaseContent: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  purchasePaper: {
     width: '65%',
     maxWidth: '1024px',
-    borderRadius: 0,
-    marginTop: '50px',
-    boxShadow: '11px 11px 25px -5px rgb(134, 134, 134)',
     [theme.breakpoints.down('md')]: {
       width: '70%',
     },
     [theme.breakpoints.down('sm')]: {
       width: '80%',
     },
+  },
+  title: {
+    textAlign: 'center',
+  },
+  purchasePaper: {
+    borderRadius: 0,
+    marginTop: '50px',
+    boxShadow: '11px 11px 25px -5px rgb(134, 134, 134)',
   },
   left: {
     padding: '20px 40px 25px 20px',
@@ -168,14 +165,6 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
   },
-  customInput: {
-    color: '#999',
-    textAlign: 'right',
-    backgroundColor: '#E3EBEE',
-    borderRadius: '5px',
-    padding: '1px 5px',
-    boxShadow: 'inset 1px 1px 2px 0px rgba(145,145,145,1)',
-  },
   perMonth: {
     '& span': {
       fontSize: '10px',
@@ -276,7 +265,7 @@ export default function Purchase() {
 
   return (
     <div className={classes.purchaseContent}>
-      <Typography variant="h3" style={{fontFamily: 'gadugi-bold'}}>
+      <Typography variant="h3" className={`${classes.title} boldTypo`}>
         BUILD YOUR PLAN
       </Typography>
       <Paper className={classes.purchasePaper}>
@@ -328,7 +317,7 @@ export default function Purchase() {
               {
                 (planType === 'premium' || planType === 'enterprise') && (
                   <div className={classes.perMonth}>
-                    <input className={classes.customInput} defaultValue="$40" />
+                    <input className="custom right" defaultValue="$40" />
                     <Typography variant="caption">per month</Typography>
                   </div>
                 )
@@ -363,7 +352,7 @@ export default function Purchase() {
               {
                 (planType === 'starter' || planType === 'premium') && (
                   <div className={classes.perMonth}>
-                    <input className={classes.customInput} defaultValue="$150" />
+                    <input className="custom right" defaultValue="$150" />
                     <Typography variant="caption">per month</Typography>
                   </div>
                 )
@@ -399,7 +388,7 @@ export default function Purchase() {
                   <>
                     <div className={classes.priceCode}>
                       <Typography variant="subtitle1">Enter your enterprise pricing code here: </Typography>&nbsp;
-                      <input className={classes.customInput} />
+                      <input className="custom right" />
                     </div>
                     <div className={classes.talkToSales}>
                       <div className="text">
@@ -418,7 +407,7 @@ export default function Purchase() {
                     <Typography variant="caption">We offer special pricing discounts for associations and groups.</Typography>&nbsp;
                     <Typography variant="caption" color="primary"  style={{fontFamily: 'gadugi-bold'}}><b>Find out more.</b></Typography><br/>
                     <Typography variant="caption">Enter your group discount code here:</Typography>&nbsp;
-                    <input className={classes.customInput} style={{marginTop: '5px'}} />
+                    <input className="custom right" style={{marginTop: '5px'}} />
                   </div>
                 )
               }

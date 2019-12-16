@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
@@ -14,24 +15,18 @@ import Logo from '../../../assets/images/logo.png'
 
 const useStyles = makeStyles(theme => ({
   subscriptionContent: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  subscriptionPaper: {
     width: '65%',
     maxWidth: '1024px',
-    borderRadius: 0,
-    boxShadow: 'unset',
     [theme.breakpoints.down('md')]: {
       width: '70%',
     },
     [theme.breakpoints.down('sm')]: {
       width: '80%',
     },
+  },
+  subscriptionPaper: {
+    borderRadius: 0,
+    boxShadow: 'unset',
   },
   left: {
     display: 'flex',
@@ -174,7 +169,9 @@ export default function Subscription() {
               <Typography variant="body1">Recurring annual charge</Typography>
               <Typography variant="body1">$2,929</Typography>
             </Box>
-            <Button className={classes.subscribeBtn} variant="contained" color="secondary">SUBSCRIBE</Button>
+            <Link to="/checkout">
+              <Button className={classes.subscribeBtn} variant="contained" color="secondary">SUBSCRIBE</Button>
+            </Link>
             <Typography variant="body1">Charges auto-renew</Typography>
             <Typography variant="body1">12 month subscription</Typography>
             <Typography variant="caption">(unless canceled 30 days prior to renewal)</Typography>
