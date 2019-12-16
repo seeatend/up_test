@@ -8,10 +8,14 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import Button from '@material-ui/core/Button';
 
 // Images
-import PaperImg from '../../../assets/images/paper.svg'
-import RocketImg from '../../../assets/images/rocket.svg'
-import AirplaneImg from '../../../assets/images/airplane.svg'
-import EarphoneImg from '../../../assets/images/earphone.svg'
+import StarterIcon from '../../../assets/images/starter_icon.png'
+import PremiumIcon from '../../../assets/images/premium_icon.png'
+import EnterpriseIcon from '../../../assets/images/enterprise_icon.png'
+import StarterWhiteIcon from '../../../assets/images/starter_icon_white.png'
+import PremiumWhiteIcon from '../../../assets/images/premium_icon_white.png'
+import EnterpriseWhiteIcon from '../../../assets/images/enterprise_icon_white.png'
+import ContractSalesWhite from '../../../assets/images/contact_sales_white.png'
+import ContractSales from '../../../assets/images/contact_sales.png'
 
 const useStyles = makeStyles(theme => ({
   purchaseContent: {
@@ -88,12 +92,16 @@ const useStyles = makeStyles(theme => ({
     }
   },
   planImg: {
+    height: '42px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     margin: '10px 0'
   },
   activedPlan: {
     backgroundColor: '#259fc4',
     color: '#fff',
-    "& span": {
+    '& span': {
       color: '#fff'
     }
   },
@@ -104,13 +112,14 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '40px'
   },
   counts: {
-    width: '30px',
-    height: '30px',
+    minWidth: '35px',
+    height: '35px',
     color: '#999',
     borderRadius: '50%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    fontFamily: 'sans-serif',
     '&.active': {
       color: '#259fc4 !important',
       fontWeight: 'bold',
@@ -152,14 +161,17 @@ const useStyles = makeStyles(theme => ({
       },
     }
   },
-  accountsLabel: {
+  labelInput: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
   },
   customInput: {
+    color: '#999',
+    textAlign: 'right',
     backgroundColor: '#E3EBEE',
     borderRadius: '5px',
+    padding: '1px 5px',
     '&:focus': {
       outline: 'unset',
     }
@@ -174,6 +186,28 @@ const useStyles = makeStyles(theme => ({
       width: '35px'
     }
   },
+  priceCode: {
+    display: 'flex',
+    marginBottom: '10px',
+    '& h6': {
+      color: '#777'
+    }
+  },
+  talkToSales: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    '& div': {
+      textAlign: 'right',
+      '& span': {
+        color: '#777'
+      }
+    },
+    '& img': {
+      width: '100px',
+      marginLeft: '10px',
+    }
+  },
   right: {
     display: 'flex',
     flexDirection: 'column',
@@ -182,7 +216,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#259fc4',
     color: '#fff',
     padding: '30px',
-    "& h6": {
+    flex: 1,
+    maxWidth: 'unset',
+    '& h6': {
       fontWeight: 'bold',
       marginTop: '30px'
     }
@@ -210,7 +246,8 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '50px',
     padding: '6px',
     '& img': {
-      marginRight: '8px'
+      width: '35px',
+      marginRight: '4px'
     }
   },
   caption: {
@@ -253,53 +290,131 @@ export default function Purchase() {
             </div>
             <div className={classes.plans}>
               <Paper className={`${classes.plan} ${planType === 'starter' ? classes.activedPlan : ''}`} onClick={() => setPlanType('starter')}>
-                <img className={classes.planImg} src={PaperImg} alt="" />
+                <div className={classes.planImg}>
+                  <img src={planType === 'starter' ? StarterWhiteIcon : StarterIcon } alt="" />
+                </div>
                 <Typography variant="h6" className={classes.boldTypo}>Starter</Typography>
                 <Typography variant="caption" className={classes.caption}>(Single User)</Typography>
               </Paper>
               <Paper className={`${classes.plan} ${planType === 'premium' ? classes.activedPlan : ''}`} onClick={() => setPlanType('premium')}>
-                <img className={classes.planImg} src={RocketImg} alt="" />
+                <div className={classes.planImg}>
+                  <img src={planType === 'premium' ? PremiumWhiteIcon : PremiumIcon } alt="" />
+                </div>
                 <Typography variant="h6" className={classes.boldTypo}>Premium</Typography>
                 <Typography variant="caption" className={classes.caption}>(Muliptle Users)</Typography>
               </Paper>
               <Paper className={`${classes.plan} ${planType === 'enterprise' ? classes.activedPlan : ''}`} onClick={() => setPlanType('enterprise')}>
-                <img className={classes.planImg} src={AirplaneImg} alt="" />
+                <div className={classes.planImg}>
+                  <img src={planType === 'enterprise' ? EnterpriseWhiteIcon : EnterpriseIcon } alt="" />
+                </div>
                 <Typography variant="h6" className={classes.boldTypo}>Enterprise</Typography>
                 <Typography variant="caption" className={classes.caption}>(Custom & Unlimited plans)</Typography>
               </Paper>
             </div>
-            <div className={classes.label}>
-              <Typography variant="subtitle1" className={classes.boldTypo} color="primary">Users</Typography>
-              <Typography variant="caption" className={classes.caption}>1 included</Typography>
+
+            <div className={classes.labelInput}>
+              <div className={classes.label}>
+                <Typography variant="subtitle1" className={classes.boldTypo} color="primary">Users</Typography>
+                <Typography variant="caption" className={classes.caption}>
+                  { planType === 'starter' ? 1 : 10} included
+                </Typography>
+              </div>
+              {
+                (planType === 'premium' || planType === 'enterprise') && (
+                  <div className={classes.perMonth}>
+                    <input className={classes.customInput} defaultValue="$40" />
+                    <Typography variant="caption">per month</Typography>
+                  </div>
+                )
+              }
             </div>
             <div className={classes.usersLine}>
-              <div className={classes.counts}>1</div>
-              <div className={`${classes.divider} active`} />
-              <div className={`${classes.counts} active`} style={{marginLeft: '5px'}}>1</div>
+              { 
+                planType === 'starter' ?
+                  <>
+                    <div className={classes.counts}>1</div>
+                    <div className={`${classes.divider} active`} />
+                    <div className={`${classes.counts} active`} style={{marginLeft: '5px'}}>1</div>
+                  </>
+                  :
+                  <>
+                    <div className={classes.counts}>10</div>
+                    <div className={`${classes.divider} active`} />
+                    <div className={`${classes.counts} active`} style={{margin: '0 5px'}}>75</div>
+                    <div className={classes.divider} />
+                    <div className={classes.counts}>250</div>
+                  </>
+              }
             </div>
-            <div className={classes.accountsLabel}>
+
+            <div className={classes.labelInput}>
               <div className={classes.label}>
                 <Typography variant="subtitle1" className={classes.boldTypo} color="primary">Accounts</Typography>
-                <Typography variant="caption" className={classes.caption}>10 included</Typography>
+                { planType === 'starter' && <Typography variant="caption" className={classes.caption}>10 included</Typography> }
+                { planType === 'premium' && <Typography variant="caption" className={classes.caption}>50 included</Typography> }
+                { planType === 'enterprise' && <Typography variant="caption" className={classes.caption}>UNLIMITED</Typography> }
               </div>
-              <div className={classes.perMonth}>
-                <input className={classes.customInput} vlaue="$150" />
-                <Typography variant="caption">per month</Typography>
-              </div>
+              {
+                (planType === 'starter' || planType === 'premium') && (
+                  <div className={classes.perMonth}>
+                    <input className={classes.customInput} defaultValue="$150" />
+                    <Typography variant="caption">per month</Typography>
+                  </div>
+                )
+              }
             </div>
-            <div className={classes.usersLine}>
-              <div className={classes.counts}>10</div>
-              <div className={`${classes.divider} active`} />
-              <div className={`${classes.counts} active`} style={{margin: '0 5px'}}>25</div>
-              <div className={classes.divider} />
-              <div className={classes.counts}>50</div>
-            </div>
-            <div>
-              <Typography variant="caption">We offer specia pricing discounts for associations and groups.</Typography>&nbsp;
-              <Typography variant="caption" color="primary"  style={{fontFamily: 'gadugi-bold'}}><b>Find out more.</b></Typography><br/>
-              <Typography variant="caption">Enter your group discount code here:</Typography>&nbsp;
-              <input className={classes.customInput} />
-            </div>
+            {
+              planType === 'starter' && (
+                <div className={classes.usersLine}>
+                  <div className={classes.counts}>10</div>
+                  <div className={`${classes.divider} active`} />
+                  <div className={`${classes.counts} active`} style={{margin: '0 5px'}}>25</div>
+                  <div className={classes.divider} />
+                  <div className={classes.counts}>50</div>
+                </div>
+              )
+            }
+
+            {
+              planType === 'premium' && (
+                <div className={classes.usersLine}>
+                  <div className={classes.counts}>50</div>
+                  <div className={`${classes.divider} active`} />
+                  <div className={`${classes.counts} active`} style={{margin: '0 5px'}}>200</div>
+                  <div className={classes.divider} />
+                  <div className={classes.counts}>10000</div>
+                </div>
+              )
+            }
+
+            {
+              planType === 'enterprise' && (
+                <>
+                  <div className={classes.priceCode}>
+                    <Typography variant="subtitle1">Enter your enterprise pricing code here: </Typography>&nbsp;
+                    <input className={classes.customInput} />
+                  </div>
+                  <div className={classes.talkToSales}>
+                    <div className="text">
+                      <Typography variant="caption">Don't have a code and would like a Unlimited plan option</Typography>
+                      <Typography variant="subtitle1" color="primary">Talk to sales</Typography>
+                    </div>
+                    <img src={ContractSales} alt="" />
+                  </div>
+                </>
+              )
+            }
+
+            {
+              (planType === 'starter' || planType === 'premium') && (
+                <div>
+                  <Typography variant="caption">We offer special pricing discounts for associations and groups.</Typography>&nbsp;
+                  <Typography variant="caption" color="primary"  style={{fontFamily: 'gadugi-bold'}}><b>Find out more.</b></Typography><br/>
+                  <Typography variant="caption">Enter your group discount code here:</Typography>&nbsp;
+                  <input className={classes.customInput} />
+                </div>
+              )
+            }
           </Grid>
 
           <Grid item xs={5} className={classes.right}>
@@ -317,7 +432,7 @@ export default function Purchase() {
             <Typography variant="body1">(12 month contract term)</Typography>
             <Button variant="contained" color="secondary" className={classes.buyBtn}>BUY NOW</Button>
             <Button variant="contained" color="primary" className={classes.talkBtn}>
-              <img src={EarphoneImg} alt="" />
+              <img src={ContractSalesWhite} alt="" />
               Talk to Sales
             </Button>
             <Typography variant="caption" style={{textAlign: 'center'}}>We’ve estimated your monthly cost based on theoptions you’ve chosen. Any applicable taxes are not included, and your fees are subject to increase with additional purchases.</Typography>
