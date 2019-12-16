@@ -1,0 +1,16 @@
+a {
+  text-decoration: none;
+}
+
+input{
+  border: none;
+  height: 22px;
+  padding: 1px 5px;
+  &:focus {
+    outline: none;
+  }
+}
+
+.boldTypo {
+  font-family: 'gadugi-bold' !important;
+}

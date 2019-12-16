@@ -2,6 +2,7 @@ import React from 'react';
 import Router from './router'
 import { ThemeProvider, makeStyles } from '@material-ui/styles';
 import theme from './theme';
+import './app.scss'
 
 const useStyles = makeStyles(theme => ({
   appContent: {

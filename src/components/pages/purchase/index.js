@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -173,9 +174,6 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#E3EBEE',
     borderRadius: '5px',
     padding: '1px 5px',
-    '&:focus': {
-      outline: 'unset',
-    }
   },
   perMonth: {
     '& span': {
@@ -262,9 +260,6 @@ const useStyles = makeStyles(theme => ({
   caption: {
     color: '#aaa',
     textAlign: 'center'
-  },
-  boldTypo: {
-    fontFamily: 'gadugi-bold'
   }
 }));
 
@@ -287,7 +282,7 @@ export default function Purchase() {
         <Grid container>
           <Grid item xs={7} className={classes.left}>
             <div className={classes.top}>
-              <Typography variant="subtitle1" className={classes.boldTypo} color="primary">Plans</Typography>
+              <Typography variant="subtitle1" className="boldTypo" color="primary">Plans</Typography>
               <ToggleButtonGroup
                 value={purchaseType}
                 exclusive
@@ -303,28 +298,28 @@ export default function Purchase() {
                 <div className={classes.planImg}>
                   <img src={planType === 'starter' ? StarterWhiteIcon : StarterIcon } alt="" />
                 </div>
-                <Typography variant="h6" className={classes.boldTypo}>Starter</Typography>
+                <Typography variant="h6" className="boldTypo">Starter</Typography>
                 <Typography variant="caption" className={classes.caption}>(Single User)</Typography>
               </Paper>
               <Paper className={`${classes.plan} ${planType === 'premium' ? classes.activedPlan : ''}`} onClick={() => setPlanType('premium')}>
                 <div className={classes.planImg}>
                   <img src={planType === 'premium' ? PremiumWhiteIcon : PremiumIcon } alt="" />
                 </div>
-                <Typography variant="h6" className={classes.boldTypo}>Premium</Typography>
+                <Typography variant="h6" className="boldTypo">Premium</Typography>
                 <Typography variant="caption" className={classes.caption}>(Muliptle Users)</Typography>
               </Paper>
               <Paper className={`${classes.plan} ${planType === 'enterprise' ? classes.activedPlan : ''}`} onClick={() => setPlanType('enterprise')}>
                 <div className={classes.planImg}>
                   <img src={planType === 'enterprise' ? EnterpriseWhiteIcon : EnterpriseIcon } alt="" />
                 </div>
-                <Typography variant="h6" className={classes.boldTypo}>Enterprise</Typography>
+                <Typography variant="h6" className="boldTypo">Enterprise</Typography>
                 <Typography variant="caption" className={classes.caption}>(Custom & Unlimited plans)</Typography>
               </Paper>
             </div>
 
             <div className={classes.labelInput}>
               <div className={classes.label}>
-                <Typography variant="subtitle1" className={classes.boldTypo} color="primary">Users</Typography>
+                <Typography variant="subtitle1" className="boldTypo" color="primary">Users</Typography>
                 <Typography variant="caption" className={classes.caption}>
                   { planType === 'starter' ? 1 : 10} included
                 </Typography>
@@ -359,7 +354,7 @@ export default function Purchase() {
 
             <div className={classes.labelInput}>
               <div className={classes.label}>
-                <Typography variant="subtitle1" className={classes.boldTypo} color="primary">Accounts</Typography>
+                <Typography variant="subtitle1" className="boldTypo" color="primary">Accounts</Typography>
                 { planType === 'starter' && <Typography variant="caption" className={classes.caption}>10 included</Typography> }
                 { planType === 'premium' && <Typography variant="caption" className={classes.caption}>50 included</Typography> }
                 { planType === 'enterprise' && <Typography variant="caption" className={classes.caption}>UNLIMITED</Typography> }
@@ -422,7 +417,7 @@ export default function Purchase() {
                     <Typography variant="caption">We offer special pricing discounts for associations and groups.</Typography>&nbsp;
                     <Typography variant="caption" color="primary"  style={{fontFamily: 'gadugi-bold'}}><b>Find out more.</b></Typography><br/>
                     <Typography variant="caption">Enter your group discount code here:</Typography>&nbsp;
-                    <input className={classes.customInput} />
+                    <input className={classes.customInput} style={{marginTop: '5px'}} />
                   </div>
                 )
               }
@@ -442,7 +437,9 @@ export default function Purchase() {
               </Typography>
             </div>
             <Typography variant="body1">(12 month contract term)</Typography>
-            <Button variant="contained" color="secondary" className={classes.buyBtn}>BUY NOW</Button>
+            <Link to="/subscription">
+              <Button variant="contained" color="secondary" className={classes.buyBtn}>BUY NOW</Button>
+            </Link>
             <Button variant="contained" color="primary" className={classes.talkBtn}>
               <img src={ContractSalesWhite} alt="" />
               Talk to Sales
