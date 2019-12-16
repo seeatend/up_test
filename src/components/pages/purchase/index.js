@@ -174,6 +174,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#E3EBEE',
     borderRadius: '5px',
     padding: '1px 5px',
+    boxShadow: 'inset 1px 1px 2px 0px rgba(145,145,145,1)',
   },
   perMonth: {
     '& span': {
