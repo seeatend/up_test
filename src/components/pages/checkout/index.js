@@ -11,6 +11,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
+import { StripeProvider } from 'react-stripe-elements';
 
 // Components
 import Step1 from './step1.js'
@@ -118,58 +119,60 @@ export default function Checkout() {
   };
   
   return (
-    <div className="page-content">
-      <Typography variant="h3" className="page-title">
-        CHECKOUT
-      </Typography>
-      <Paper className={classes.checkoutPaper}>
-        <Grid container style={{height: '100%'}}>
-          <Grid item xs={7} className={classes.left}>
-            <Stepper className={classes.stepper} activeStep={activeStep} connector={<CustomConnector />}>
-              <Step className={classes.step} key={1}><StepLabel/></Step>
-              <Step className={classes.step} key={2}><StepLabel/></Step>
-              <Step className={classes.step} key={3}><StepLabel/></Step>
-              <Step className={classes.step} key={4}><StepLabel/></Step>
-              <Step className={classes.step} key={5}><StepLabel/></Step>
-            </Stepper>
-            <Box flexGrow="1">
-              { getStepContent(activeStep) }
-            </Box>
-            <Box display="flex" justifyContent="space-between" alignItems="center">
-              <Button className={classes.stepBtn} variant="contained" color="primary" size="small" onClick={handleBack} 
-                style={{visibility: activeStep === 0 ? 'hidden' : 'visible'}}>
-                Back
-              </Button>
-              {
-                activeStep === 4 ?
-                  <Link to="/">
-                    <Button className={classes.stepBtn} variant="contained" color="primary" size="small">Subscribe</Button>
-                  </Link>
-                  :
-                  <Button className={classes.stepBtn} variant="contained" color="primary" size="small" onClick={handleNext}>
-                    Continue
-                  </Button>    
-              }
-            </Box>
-          </Grid>
+    <StripeProvider apiKey="pk_test_6pRNASCoBOKtIshFeQd4XMUh">
+      <div className="page-content">
+        <Typography variant="h3" className="page-title">
+          CHECKOUT
+        </Typography>
+        <Paper className={classes.checkoutPaper}>
+          <Grid container style={{height: '100%'}}>
+            <Grid item xs={7} className={classes.left}>
+              <Stepper className={classes.stepper} activeStep={activeStep} connector={<CustomConnector />}>
+                <Step className={classes.step} key={1}><StepLabel/></Step>
+                <Step className={classes.step} key={2}><StepLabel/></Step>
+                <Step className={classes.step} key={3}><StepLabel/></Step>
+                <Step className={classes.step} key={4}><StepLabel/></Step>
+                <Step className={classes.step} key={5}><StepLabel/></Step>
+              </Stepper>
+              <Box flexGrow="1">
+                { getStepContent(activeStep) }
+              </Box>
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Button className={classes.stepBtn} variant="contained" color="primary" size="small" onClick={handleBack} 
+                  style={{visibility: activeStep === 0 ? 'hidden' : 'visible'}}>
+                  Back
+                </Button>
+                {
+                  activeStep === 4 ?
+                    <Link to="/done">
+                      <Button className={classes.stepBtn} variant="contained" color="primary" size="small">Subscribe</Button>
+                    </Link>
+                    :
+                    <Button className={classes.stepBtn} variant="contained" color="primary" size="small" onClick={handleNext}>
+                      Continue
+                    </Button>    
+                }
+              </Box>
+            </Grid>
 
-          <Grid item xs={5} className={classes.right}>
-            <Typography variant="h6">ORDER SUMMARY</Typography>
-            <Divider className={classes.divider} />
-            <Box display="flex" flexDirection="column" alignItems="flex-start" style={{width: '90%'}}>
-              <Typography variant="body1">Premium</Typography>
-              <Typography variant="body1">Annual Pay</Typography>
-              <Typography variant="body1">25 Users</Typography>
-              <Typography variant="body1">200 Account</Typography>
-            </Box>
-            <Divider className={classes.divider} />
-            <Box className={classes.field} display="flex" justifyContent="space-between" alignItems="center" style={{width: '90%'}}>
-              <Typography variant="body1">Annual recurring fees</Typography>
-              <Typography variant="body1">$2,929</Typography>
-            </Box>
+            <Grid item xs={5} className={classes.right}>
+              <Typography variant="h6">ORDER SUMMARY</Typography>
+              <Divider className={classes.divider} />
+              <Box display="flex" flexDirection="column" alignItems="flex-start" style={{width: '90%'}}>
+                <Typography variant="body1">Premium</Typography>
+                <Typography variant="body1">Annual Pay</Typography>
+                <Typography variant="body1">25 Users</Typography>
+                <Typography variant="body1">200 Account</Typography>
+              </Box>
+              <Divider className={classes.divider} />
+              <Box className={classes.field} display="flex" justifyContent="space-between" alignItems="center" style={{width: '90%'}}>
+                <Typography variant="body1">Annual recurring fees</Typography>
+                <Typography variant="body1">$2,929</Typography>
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
-      </Paper>
-    </div>
+        </Paper>
+      </div>
+    </StripeProvider>
   );
 }

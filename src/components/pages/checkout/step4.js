@@ -7,6 +7,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { Elements, CardElement, injectStripe } from 'react-stripe-elements';
 
 const useStyles = makeStyles(theme => ({
   left: {
@@ -57,6 +58,50 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const createOptions = () => {
+  return {
+    style: {
+      base: {
+        fontSize: '12px',
+        letterSpacing: '0.025em',
+        fontFamily: 'Source Code Pro, monospace',
+        '::placeholder': {
+          color: '#999',
+        },
+      },
+      invalid: {
+        color: '#9e2146',
+      },
+    },
+  };
+};
+
+const _CardElement = (props) => {
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    if (props.stripe) {
+      props.stripe
+        .createToken()
+        .then((payload) => console.log('[token]', payload));
+    } else {
+      console.log("Stripe.js hasn't loaded yet.");
+    }
+  };
+  
+  return (
+    <form onSubmit={handleSubmit}>
+      <CardElement
+        // onBlur={handleBlur}
+        // onChange={handleChange}
+        // onFocus={handleFocus}
+        // onReady={handleReady}
+        {...createOptions()}
+      />
+    </form>
+  );
+}
+const CardElementContent = injectStripe(_CardElement);
+
 export default function Step4() {
   const classes = useStyles();
   
@@ -65,7 +110,9 @@ export default function Step4() {
       <Grid item xs={6} className={classes.left}>
         <Box display="flex" flexDirection="column">
           <Typography variant="body2" className="boldTypo" color="primary" style={{marginBottom: '20px'}}>Payment Method</Typography>
-          <input className={`${classes.input} custom`} />
+          <Elements>
+            <CardElementContent />
+          </Elements>
           <Typography variant="caption">Transactions are secured and encrypted. Payment information will be saved</Typography>
         </Box>
         <FormControlLabel
