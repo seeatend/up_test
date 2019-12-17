@@ -26,3 +26,24 @@ input {
 .boldTypo {
   font-family: 'gadugi-bold' !important;
 }
+
+.page-content {
+  width: 65%;
+  height: 640px;
+  max-width: 1024px;
+  display: flex;
+  flex-direction: column;
+  
+  @media screen and (max-width: 1024px) {
+    width: 70%;
+  }
+
+  @media screen and (max-width: 760px) {
+    width: 80%;
+  }
+}
+
+.page-title {
+  text-align: center;
+  font-family: 'gadugi-bold' !important;
+}

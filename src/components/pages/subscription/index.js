@@ -14,28 +14,18 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Logo from '../../../assets/images/logo.png'
 
 const useStyles = makeStyles(theme => ({
-  subscriptionContent: {
-    width: '65%',
-    maxWidth: '1024px',
-    [theme.breakpoints.down('md')]: {
-      width: '70%',
-    },
-    [theme.breakpoints.down('sm')]: {
-      width: '80%',
-    },
-  },
   subscriptionPaper: {
+    flex: 1,
+    marginTop: '40px',
     borderRadius: 0,
-    boxShadow: 'unset',
+    boxShadow: '11px 11px 25px -5px rgb(134, 134, 134)',
   },
   left: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    border: '1px solid #259fc4',
-    marginRight: '5px',
-    boxShadow: '0px -2px 4px -1px rgba(117,117,117,1)',
+    padding: '20px',
   },
   right: {
     display: 'flex',
@@ -47,7 +37,6 @@ const useStyles = makeStyles(theme => ({
     padding: '15px',
     flex: 1,
     maxWidth: 'unset',
-    boxShadow: '0px -2px 4px -1px rgba(117,117,117,1)',
   },
   logoContent: {
     width: 'calc(95% - 40px)',
@@ -60,8 +49,12 @@ const useStyles = makeStyles(theme => ({
     }
   },
   privacyContent: {
-    padding: '10px 20px',
-    borderTop: '1px solid #259fc4',
+    paddingTop: '10px',
+    borderTop: '1px solid black',
+  },
+  topTxt: {
+    marginBottom: '10px',
+    letterSpacing: '0.8px',
   },
   divider: {
     width: '100%',
@@ -73,14 +66,17 @@ const useStyles = makeStyles(theme => ({
   },
   subscribeBtn: {
     width: '130px',
+    borderRadius: 0,
+    color: '#259fc4',
+    fontFamily: 'gadugi-bold',
     fontSize: '16px',
+    letterSpacing: '1px',
     margin: '15px',
     '&:hover': {
       backgroundColor: '#E3EBEE'
     }
   },
   overage: {
-    color: '#555',
     marginBottom: '5px',
   },
   text: {
@@ -93,6 +89,10 @@ const useStyles = makeStyles(theme => ({
   checkbox: {
     padding: 0,
     marginRight: '5px',
+  },
+  discountCode: {
+    height: '18px',
+    borderRadius: '0 !important',
   }
 }));
 
@@ -100,9 +100,12 @@ export default function Subscription() {
   const classes = useStyles();
 
   return (
-    <div className={classes.subscriptionContent}>
+    <div className="page-content">
+      <Typography variant="h3" className="page-title">
+        SUBSCRIPTION
+      </Typography>
       <Paper className={classes.subscriptionPaper}>
-        <Grid container>
+        <Grid container style={{height: '100%'}}>
           <Grid item xs={7} className={classes.left}>
             <Box display="flex" justifyContent="center" alignItems="center" flex="1" style={{width: '100%'}}>
               <Paper className={classes.logoContent}>
@@ -121,7 +124,7 @@ export default function Subscription() {
                       inputProps={{ 'aria-label': 'secondary checkbox' }}
                     />
                   }
-                  label={<Typography variant="subtitle2" className="boldTypo" style={{color: '#555'}}>I understand how account overages work</Typography>}
+                  label={<Typography variant="subtitle2" className="boldTypo" color="primary">I understand how account overages work</Typography>}
                   style={{margin: 0}}
                 />
               </Box>
@@ -129,51 +132,52 @@ export default function Subscription() {
           </Grid>
 
           <Grid item xs={5} className={classes.right}>
-            <Typography variant="h5">Subscription Summary</Typography>
+            <Typography variant="h6" className={classes.topTxt}>SUBSCRIPTION SUMMARY</Typography>
             <Divider className={classes.divider} />
             <Box className={classes.field} display="flex" justifyContent="space-between" alignItems="center">
-              <Typography variant="body1">Premium</Typography>
-              <Typography variant="body1">$1,920</Typography>
+              <Typography variant="body2">Premium</Typography>
+              <Typography variant="body2">$1,920</Typography>
             </Box>
             <Box className={classes.field} display="flex" justifyContent="space-between" alignItems="center">
-              <Typography variant="body1">Annual Pay</Typography>
-              <Typography variant="body1">-$431</Typography>
+              <Typography variant="body2">Annual Pay</Typography>
+              <Typography variant="body2">-$431</Typography>
             </Box>
             <Box className={classes.field} display="flex" justifyContent="space-between" alignItems="center">
-              <Typography variant="body1">25 users</Typography>
-              <Typography variant="body1">$360</Typography>
+              <Typography variant="body2">25 users</Typography>
+              <Typography variant="body2">$360</Typography>
             </Box>
             <Box className={classes.field} display="flex" justifyContent="space-between" alignItems="center">
-              <Typography variant="body1">200 accounts</Typography>
-              <Typography variant="body1">$1,494</Typography>
-            </Box>
-            <Divider className={classes.divider} />
-            <Box className={classes.field} display="flex" justifyContent="space-between" alignItems="center">
-              <Typography variant="body1">Size Discount</Typography>
-              <Typography variant="body1">$102</Typography>
-            </Box>
-            <Box className={classes.field} display="flex" justifyContent="space-between" alignItems="center">
-              <Typography variant="body1">Discount Code</Typography>
-              <input />
-            </Box>
-            <Box className={classes.field} display="flex" justifyContent="space-between" alignItems="center">
-              <Typography variant="body1">Promo Discount</Typography>
-              <Typography variant="body1">$339</Typography>
+              <Typography variant="body2">200 accounts</Typography>
+              <Typography variant="body2">$1,494</Typography>
             </Box>
             <Divider className={classes.divider} />
             <Box className={classes.field} display="flex" justifyContent="space-between" alignItems="center">
-              <Typography variant="body1">Today's charge</Typography>
-              <Typography variant="body1">$2,929</Typography>
+              <Typography variant="body2">Size Discount</Typography>
+              <Typography variant="body2">$102</Typography>
+            </Box>
+            <Box className={classes.field} display="flex" justifyContent="space-between" alignItems="center">
+              <Typography variant="body2">Discount Code</Typography>
+              <input className={`custom ${classes.discountCode}`} />
+            </Box>
+            <Box className={classes.field} display="flex" justifyContent="space-between" alignItems="center">
+              <Typography variant="body2">Promo Discount</Typography>
+              <Typography variant="body2">$339</Typography>
+            </Box>
+            <Divider className={classes.divider} />
+            <Box className={classes.field} display="flex" justifyContent="space-between" alignItems="center">
+              <Typography variant="body2">Today's charge</Typography>
+              <Typography variant="body2">$2,929</Typography>
             </Box>
             <Box className={classes.field} display="flex" justifyContent="space-between" alignItems="center" style={{marginTop: '20px'}}>
-              <Typography variant="body1">Recurring annual charge</Typography>
-              <Typography variant="body1">$2,929</Typography>
+              <Typography variant="body2">Recurring annual charge</Typography>
+              <Typography variant="body2">$2,929</Typography>
             </Box>
+            <Divider className={classes.divider} />
             <Link to="/checkout">
               <Button className={classes.subscribeBtn} variant="contained" color="secondary">SUBSCRIBE</Button>
             </Link>
-            <Typography variant="body1">Charges auto-renew</Typography>
-            <Typography variant="body1">12 month subscription</Typography>
+            <Typography variant="body2" className="boldTypo" style={{marginBottom: '20px'}}>Charges auto-renew</Typography>
+            <Typography variant="body2" className="boldTypo">12 month subscription</Typography>
             <Typography variant="caption">(unless canceled 30 days prior to renewal)</Typography>
           </Grid>
         </Grid>

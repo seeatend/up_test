@@ -16,26 +16,14 @@ import StepConnector from '@material-ui/core/StepConnector';
 import Step1 from './step1.js'
 
 const useStyles = makeStyles(theme => ({
-  checkoutContent: {
-    width: '65%',
-    maxWidth: '1024px',
-    [theme.breakpoints.down('md')]: {
-      width: '70%',
-    },
-    [theme.breakpoints.down('sm')]: {
-      width: '80%',
-    },
-  },
-  title: {
-    marginLeft: '50px',
-  },
   checkoutPaper: {
+    flex: 1,
     borderRadius: 0,
-    marginTop: '50px',
+    marginTop: '40px',
     boxShadow: '11px 11px 25px -5px rgb(134, 134, 134)',
   },
   left: {
-    padding: '25px 50px',
+    padding: '35px 50px',
   },
   right: {
     display: 'flex',
@@ -122,30 +110,30 @@ export default function Checkout() {
   };
   
   return (
-    <div className={classes.checkoutContent}>
-      <Typography variant="h3" className={`${classes.title} boldTypo`}>
-        Checkout
+    <div className="page-content">
+      <Typography variant="h3" className="page-title">
+        CHECKOUT
       </Typography>
       <Paper className={classes.checkoutPaper}>
-        <Grid container>
+        <Grid container style={{height: '100%'}}>
           <Grid item xs={7} className={classes.left}>
-          <Stepper className={classes.stepper} activeStep={activeStep} connector={<CustomConnector />}>
-            <Step className={classes.step} key={1}><StepLabel/></Step>
-            <Step className={classes.step} key={2}><StepLabel/></Step>
-            <Step className={classes.step} key={3}><StepLabel/></Step>
-            <Step className={classes.step} key={4}><StepLabel/></Step>
-            <Step className={classes.step} key={5}><StepLabel/></Step>
-          </Stepper>
-          { getStepContent(activeStep) }
-          <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Button className={classes.stepBtn} variant="contained" color="primary" size="small" onClick={handleBack} 
-              style={{visibility: activeStep === 0 ? 'hidden' : 'visible'}}>
-              Back
-            </Button>
-            <Button className={classes.stepBtn} variant="contained" color="primary" size="small" onClick={handleNext}>
-              {activeStep === 4 ? 'Subscribe' : 'Continue'}
-            </Button>
-          </Box>
+            <Stepper className={classes.stepper} activeStep={activeStep} connector={<CustomConnector />}>
+              <Step className={classes.step} key={1}><StepLabel/></Step>
+              <Step className={classes.step} key={2}><StepLabel/></Step>
+              <Step className={classes.step} key={3}><StepLabel/></Step>
+              <Step className={classes.step} key={4}><StepLabel/></Step>
+              <Step className={classes.step} key={5}><StepLabel/></Step>
+            </Stepper>
+            { getStepContent(activeStep) }
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Button className={classes.stepBtn} variant="contained" color="primary" size="small" onClick={handleBack} 
+                style={{visibility: activeStep === 0 ? 'hidden' : 'visible'}}>
+                Back
+              </Button>
+              <Button className={classes.stepBtn} variant="contained" color="primary" size="small" onClick={handleNext}>
+                {activeStep === 4 ? 'Subscribe' : 'Continue'}
+              </Button>
+            </Box>
           </Grid>
 
           <Grid item xs={5} className={classes.right}>

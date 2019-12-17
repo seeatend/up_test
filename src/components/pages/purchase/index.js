@@ -19,22 +19,10 @@ import ContractSalesWhite from '../../../assets/images/contact_sales_white.png'
 import ContractSales from '../../../assets/images/contact_sales.png'
 
 const useStyles = makeStyles(theme => ({
-  purchaseContent: {
-    width: '65%',
-    maxWidth: '1024px',
-    [theme.breakpoints.down('md')]: {
-      width: '70%',
-    },
-    [theme.breakpoints.down('sm')]: {
-      width: '80%',
-    },
-  },
-  title: {
-    textAlign: 'center',
-  },
   purchasePaper: {
+    flex: 1,
     borderRadius: 0,
-    marginTop: '50px',
+    marginTop: '40px',
     boxShadow: '11px 11px 25px -5px rgb(134, 134, 134)',
   },
   left: {
@@ -264,12 +252,12 @@ export default function Purchase() {
   };
 
   return (
-    <div className={classes.purchaseContent}>
-      <Typography variant="h3" className={`${classes.title} boldTypo`}>
+    <div className="page-content">
+      <Typography variant="h3" className="page-title">
         BUILD YOUR PLAN
       </Typography>
       <Paper className={classes.purchasePaper}>
-        <Grid container>
+        <Grid container style={{height: '100%'}}>
           <Grid item xs={7} className={classes.left}>
             <div className={classes.top}>
               <Typography variant="subtitle1" className="boldTypo" color="primary">Plans</Typography>
