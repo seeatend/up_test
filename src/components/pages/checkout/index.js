@@ -14,6 +14,10 @@ import StepConnector from '@material-ui/core/StepConnector';
 
 // Components
 import Step1 from './step1.js'
+import Step2 from './step2.js'
+import Step3 from './step3.js'
+import Step4 from './step4.js'
+import Step5 from './step5.js'
 
 const useStyles = makeStyles(theme => ({
   checkoutPaper: {
@@ -24,6 +28,8 @@ const useStyles = makeStyles(theme => ({
   },
   left: {
     padding: '35px 50px',
+    display: 'flex',
+    flexDirection: 'column',
   },
   right: {
     display: 'flex',
@@ -36,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 'unset',
     '& h6': {
       fontWeight: 'bold',
-      marginTop: '30px'
+      marginTop: '50px'
     }
   },
   divider: {
@@ -46,6 +52,7 @@ const useStyles = makeStyles(theme => ({
   },
   stepper: {
     padding: 0,
+    marginTop: '20px',
     marginBottom: '30px',
   },
   step: {
@@ -53,8 +60,9 @@ const useStyles = makeStyles(theme => ({
     '& span': {
       padding: 0
     },
-    '& $line': {
-
+    '& svg': {
+      width: '26px',
+      height: '26px',
     }
   },
   stepBtn: {
@@ -87,15 +95,15 @@ function getStepContent(stepIndex) {
     case 0:
       return <Step1 />
     case 1:
-      return 'Step 2';
+      return <Step2 />
     case 2:
-      return 'Step 3';
+      return <Step3 />
     case 3:
-      return 'Step 4';
+      return <Step4 />
     case 4:
-      return 'Step 5';
+      return <Step5 />
     default:
-      return <Step1 />;
+      return <Step1 />
   }
 }
 
@@ -103,7 +111,7 @@ export default function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
-    setActiveStep(prevActiveStep => prevActiveStep < 4 ? prevActiveStep + 1 : prevActiveStep);
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
   };
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
@@ -124,15 +132,24 @@ export default function Checkout() {
               <Step className={classes.step} key={4}><StepLabel/></Step>
               <Step className={classes.step} key={5}><StepLabel/></Step>
             </Stepper>
-            { getStepContent(activeStep) }
+            <Box flexGrow="1">
+              { getStepContent(activeStep) }
+            </Box>
             <Box display="flex" justifyContent="space-between" alignItems="center">
               <Button className={classes.stepBtn} variant="contained" color="primary" size="small" onClick={handleBack} 
                 style={{visibility: activeStep === 0 ? 'hidden' : 'visible'}}>
                 Back
               </Button>
-              <Button className={classes.stepBtn} variant="contained" color="primary" size="small" onClick={handleNext}>
-                {activeStep === 4 ? 'Subscribe' : 'Continue'}
-              </Button>
+              {
+                activeStep === 4 ?
+                  <Link to="/">
+                    <Button className={classes.stepBtn} variant="contained" color="primary" size="small">Subscribe</Button>
+                  </Link>
+                  :
+                  <Button className={classes.stepBtn} variant="contained" color="primary" size="small" onClick={handleNext}>
+                    Continue
+                  </Button>    
+              }
             </Box>
           </Grid>
 

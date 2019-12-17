@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
   field: {
-    marginBottom: '10px'
+    marginBottom: '20px'
   },
   input: {
     borderRadius: '0 !important'
@@ -36,7 +36,7 @@ export default function Step1() {
   return (
     <div>
       <Box display="flex" flexDirection="column" className={classes.field}>
-        <Typography className={classes.caption} variant="caption">Company name*</Typography>
+        <Typography className={classes.caption} variant="caption">Company Name*</Typography>
         <input className={`${classes.input} custom`} />
       </Box>
 
