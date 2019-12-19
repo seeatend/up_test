@@ -59,3 +59,62 @@ input {
   outline: 0;
   border-radius: 0;
 }
+
+.rangeslider {
+  width: 100%;
+}
+
+.rangeslider-horizontal {
+  height: 1px;
+  margin: 0;
+  position: relative;
+
+  &:before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    background-color: #259fc4;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+  }
+
+  &:after {
+    content: "";
+    width: 5px;
+    height: 5px;
+    background-color: #aaa;
+    position: absolute;
+    right: 0;
+    bottom: -2px;
+  };
+
+  .rangeslider__fill {
+    background-color: #259fc4;
+    box-shadow: unset;
+  }
+
+  .rangeslider__handle {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E0E0E0;
+    border: unset;
+    box-shadow: unset;
+    color: #259fc4 !important;
+    font-weight: bold;
+    background-color: #E0E0E0;
+    font-family: sans-serif;
+    z-index: 99;
+
+    &:after {
+      content: unset;
+    }
+
+    &:focus {
+      outline: unset;
+    }
+  }
+}

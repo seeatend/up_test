@@ -8,6 +8,8 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import Button from '@material-ui/core/Button';
 
+import Slider from 'react-rangeslider'
+import 'react-rangeslider/lib/index.css'
 // Images
 import StarterIcon from '../../../assets/images/starter_icon.png'
 import PremiumIcon from '../../../assets/images/premium_icon.png'
@@ -99,54 +101,10 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '40px'
   },
   counts: {
-    minWidth: '35px',
-    height: '35px',
     color: '#999',
-    borderRadius: '50%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    fontWeight: '500',
     fontFamily: 'sans-serif',
-    '&.active': {
-      color: '#259fc4 !important',
-      fontWeight: 'bold',
-      backgroundColor: '#E0E0E0'
-    }
-  },
-  divider: {
-    flex: 1,
-    height: '1px',
-    backgroundColor: '#aaa',
-    position: 'relative',
-    '&:before': {
-      content: "''",
-      width: '5px',
-      height: '5px',
-      backgroundColor: '#aaa',
-      position: 'absolute',
-      left: 0,
-      bottom: '-2px'
-    },
-    '&:after': {
-      content: "''",
-      width: '5px',
-      height: '5px',
-      backgroundColor: '#aaa',
-      position: 'absolute',
-      right: 0,
-      bottom: '-2px'
-    },
-    '&.active': {
-      backgroundColor: '#259fc4',
-      '&:before': {
-        content: "''",
-        backgroundColor: '#259fc4',
-      },
-      '&:after': {
-        content: "''",
-        backgroundColor: '#259fc4',
-      },
-    }
+    margin: '0 5px',
   },
   labelInput: {
     display: 'flex',
@@ -245,11 +203,28 @@ export default function Purchase() {
   const classes = useStyles();
   const [purchaseType, setPurchaseType] = React.useState('annual');
   const [planType, setPlanType] = React.useState('starter');
+  const [users, setUsers] = React.useState(1);
+  const [accounts, setAccounts] = React.useState(25);
 
   const handlePurchaseType = (event, value) => {
     if (value === null) value = purchaseType
     setPurchaseType(value);
   };
+
+  const selectPlan = (plan) => {
+    if (plan === 'starter') {
+      setUsers(1);
+      setAccounts(25);
+    }
+    if (plan === 'premium') {
+      setUsers(75);
+      setAccounts(200);
+    }
+    if (plan === 'enterprise') {
+      setUsers(75);
+    }
+    setPlanType(plan);
+  }
 
   return (
     <div className="page-content">
@@ -272,21 +247,21 @@ export default function Purchase() {
               </ToggleButtonGroup>
             </div>
             <div className={classes.plans}>
-              <Paper className={`${classes.plan} ${planType === 'starter' ? classes.activedPlan : ''}`} onClick={() => setPlanType('starter')}>
+              <Paper className={`${classes.plan} ${planType === 'starter' ? classes.activedPlan : ''}`} onClick={() => selectPlan('starter')}>
                 <div className={classes.planImg}>
                   <img src={planType === 'starter' ? StarterWhiteIcon : StarterIcon } alt="" />
                 </div>
                 <Typography variant="h6" className="boldTypo">Starter</Typography>
                 <Typography variant="caption" className={classes.caption}>(Single User)</Typography>
               </Paper>
-              <Paper className={`${classes.plan} ${planType === 'premium' ? classes.activedPlan : ''}`} onClick={() => setPlanType('premium')}>
+              <Paper className={`${classes.plan} ${planType === 'premium' ? classes.activedPlan : ''}`} onClick={() => selectPlan('premium')}>
                 <div className={classes.planImg}>
                   <img src={planType === 'premium' ? PremiumWhiteIcon : PremiumIcon } alt="" />
                 </div>
                 <Typography variant="h6" className="boldTypo">Premium</Typography>
                 <Typography variant="caption" className={classes.caption}>(Muliptle Users)</Typography>
               </Paper>
-              <Paper className={`${classes.plan} ${planType === 'enterprise' ? classes.activedPlan : ''}`} onClick={() => setPlanType('enterprise')}>
+              <Paper className={`${classes.plan} ${planType === 'enterprise' ? classes.activedPlan : ''}`} onClick={() => selectPlan('enterprise')}>
                 <div className={classes.planImg}>
                   <img src={planType === 'enterprise' ? EnterpriseWhiteIcon : EnterpriseIcon } alt="" />
                 </div>
@@ -315,17 +290,31 @@ export default function Purchase() {
               { 
                 planType === 'starter' ?
                   <>
-                    <div className={classes.counts}>1</div>
-                    <div className={`${classes.divider} active`} />
-                    <div className={`${classes.counts} active`} style={{marginLeft: '5px'}}>1</div>
+                    <Typography variant="subtitle1" className={classes.counts}>0</Typography>
+                    <Slider
+                      min={0}
+                      max={1}
+                      step={1}
+                      tooltip={false}
+                      value={users}
+                      handleLabel={users}
+                      onChange={setUsers}
+                    />
+                    <Typography variant="subtitle1" className={classes.counts}>1</Typography>
                   </>
                   :
                   <>
-                    <div className={classes.counts}>10</div>
-                    <div className={`${classes.divider} active`} />
-                    <div className={`${classes.counts} active`} style={{margin: '0 5px'}}>75</div>
-                    <div className={classes.divider} />
-                    <div className={classes.counts}>250</div>
+                    <Typography variant="subtitle1" className={classes.counts}>10</Typography>
+                    <Slider
+                      min={10}
+                      max={250}
+                      step={25}
+                      tooltip={false}
+                      value={users}
+                      handleLabel={users}
+                      onChange={setUsers}
+                    />
+                    <Typography variant="subtitle1" className={classes.counts}>250</Typography>
                   </>
               }
             </div>
@@ -350,11 +339,17 @@ export default function Purchase() {
               {
                 planType === 'starter' && (
                   <div className={classes.usersLine}>
-                    <div className={classes.counts}>10</div>
-                    <div className={`${classes.divider} active`} />
-                    <div className={`${classes.counts} active`} style={{margin: '0 5px'}}>25</div>
-                    <div className={classes.divider} />
-                    <div className={classes.counts}>50</div>
+                    <Typography variant="subtitle1" className={classes.counts}>10</Typography>
+                    <Slider
+                      min={10}
+                      max={50}
+                      step={5}
+                      tooltip={false}
+                      value={accounts}
+                      handleLabel={accounts}
+                      onChange={setAccounts}
+                    />
+                    <Typography variant="subtitle1" className={classes.counts}>50</Typography>
                   </div>
                 )
               }
@@ -362,11 +357,17 @@ export default function Purchase() {
               {
                 planType === 'premium' && (
                   <div className={classes.usersLine}>
-                    <div className={classes.counts}>50</div>
-                    <div className={`${classes.divider} active`} />
-                    <div className={`${classes.counts} active`} style={{margin: '0 5px'}}>200</div>
-                    <div className={classes.divider} />
-                    <div className={classes.counts}>10000</div>
+                    <Typography variant="subtitle1" className={classes.counts}>50</Typography>
+                    <Slider
+                      min={50}
+                      max={10000}
+                      step={25}
+                      tooltip={false}
+                      value={accounts}
+                      handleLabel={accounts}
+                      onChange={setAccounts}
+                    />
+                    <Typography variant="subtitle1" className={classes.counts}>10000</Typography>
                   </div>
                 )
               }
