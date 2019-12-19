@@ -108,6 +108,7 @@ input {
     background-color: #E0E0E0;
     font-family: sans-serif;
     z-index: 99;
+    user-select: none;
 
     &:after {
       content: unset;

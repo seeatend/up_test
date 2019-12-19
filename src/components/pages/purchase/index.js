@@ -203,28 +203,16 @@ export default function Purchase() {
   const classes = useStyles();
   const [purchaseType, setPurchaseType] = React.useState('annual');
   const [planType, setPlanType] = React.useState('starter');
-  const [users, setUsers] = React.useState(1);
-  const [accounts, setAccounts] = React.useState(25);
+  const [starterUsers, setStarterUsers] = React.useState(1);
+  const [starterAccounts, setStarterAccounts] = React.useState(25);
+  const [premiumUsers, setPremiumUsers] = React.useState(75);
+  const [premiumAccounts, setPremiumAccounts] = React.useState(200);
+  const [enterpriseUsers, setEnterpriseUsers] = React.useState(75);
 
   const handlePurchaseType = (event, value) => {
     if (value === null) value = purchaseType
     setPurchaseType(value);
   };
-
-  const selectPlan = (plan) => {
-    if (plan === 'starter') {
-      setUsers(1);
-      setAccounts(25);
-    }
-    if (plan === 'premium') {
-      setUsers(75);
-      setAccounts(200);
-    }
-    if (plan === 'enterprise') {
-      setUsers(75);
-    }
-    setPlanType(plan);
-  }
 
   return (
     <div className="page-content">
@@ -247,21 +235,21 @@ export default function Purchase() {
               </ToggleButtonGroup>
             </div>
             <div className={classes.plans}>
-              <Paper className={`${classes.plan} ${planType === 'starter' ? classes.activedPlan : ''}`} onClick={() => selectPlan('starter')}>
+              <Paper className={`${classes.plan} ${planType === 'starter' ? classes.activedPlan : ''}`} onClick={() => setPlanType('starter')}>
                 <div className={classes.planImg}>
                   <img src={planType === 'starter' ? StarterWhiteIcon : StarterIcon } alt="" />
                 </div>
                 <Typography variant="h6" className="boldTypo">Starter</Typography>
                 <Typography variant="caption" className={classes.caption}>(Single User)</Typography>
               </Paper>
-              <Paper className={`${classes.plan} ${planType === 'premium' ? classes.activedPlan : ''}`} onClick={() => selectPlan('premium')}>
+              <Paper className={`${classes.plan} ${planType === 'premium' ? classes.activedPlan : ''}`} onClick={() => setPlanType('premium')}>
                 <div className={classes.planImg}>
                   <img src={planType === 'premium' ? PremiumWhiteIcon : PremiumIcon } alt="" />
                 </div>
                 <Typography variant="h6" className="boldTypo">Premium</Typography>
                 <Typography variant="caption" className={classes.caption}>(Muliptle Users)</Typography>
               </Paper>
-              <Paper className={`${classes.plan} ${planType === 'enterprise' ? classes.activedPlan : ''}`} onClick={() => selectPlan('enterprise')}>
+              <Paper className={`${classes.plan} ${planType === 'enterprise' ? classes.activedPlan : ''}`} onClick={() => setPlanType('enterprise')}>
                 <div className={classes.planImg}>
                   <img src={planType === 'enterprise' ? EnterpriseWhiteIcon : EnterpriseIcon } alt="" />
                 </div>
@@ -296,9 +284,9 @@ export default function Purchase() {
                       max={1}
                       step={1}
                       tooltip={false}
-                      value={users}
-                      handleLabel={users}
-                      onChange={setUsers}
+                      value={starterUsers}
+                      handleLabel={starterUsers}
+                      onChange={setStarterUsers}
                     />
                     <Typography variant="subtitle1" className={classes.counts}>1</Typography>
                   </>
@@ -310,9 +298,9 @@ export default function Purchase() {
                       max={250}
                       step={25}
                       tooltip={false}
-                      value={users}
-                      handleLabel={users}
-                      onChange={setUsers}
+                      value={planType === 'premium' ? premiumUsers : enterpriseUsers}
+                      handleLabel={planType === 'premium' ? premiumUsers : enterpriseUsers}
+                      onChange={planType === 'premium' ? setPremiumUsers : setEnterpriseUsers}
                     />
                     <Typography variant="subtitle1" className={classes.counts}>250</Typography>
                   </>
@@ -345,9 +333,9 @@ export default function Purchase() {
                       max={50}
                       step={5}
                       tooltip={false}
-                      value={accounts}
-                      handleLabel={accounts}
-                      onChange={setAccounts}
+                      value={starterAccounts}
+                      handleLabel={starterAccounts}
+                      onChange={setStarterAccounts}
                     />
                     <Typography variant="subtitle1" className={classes.counts}>50</Typography>
                   </div>
@@ -363,9 +351,9 @@ export default function Purchase() {
                       max={10000}
                       step={25}
                       tooltip={false}
-                      value={accounts}
-                      handleLabel={accounts}
-                      onChange={setAccounts}
+                      value={premiumAccounts}
+                      handleLabel={premiumAccounts}
+                      onChange={setPremiumAccounts}
                     />
                     <Typography variant="subtitle1" className={classes.counts}>10000</Typography>
                   </div>
